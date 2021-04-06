@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+  <style>
+    #mapid { 
+      -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+      -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+      box-sizing: border-box;         /* Opera/IE 8+ */
+
+    /* Since this element now uses border-box sizing, the 10px of horizontal
+       padding will be drawn inside the 80% width */
+      width: 80%;
+      height: 500px;
+      padding: 0 10px;
+      
+      
+    }
+  </style>
+</head> 
+<html>
+  <body>
+
+    <h1>Palmer Square Cocoa Crawl</h1>
+    <p>A cocoa crawl is a sweet alternative to a pub crawl. There are over 10 locations in Princeton that sell hot chocolate, including 5 in and adjacent to Palmer Square - a pubkic square and a planned development just outside the front gates of Princeton University's Campus.</p>
+    <br>
+    <div id="mapid"></div>
+    <div id="latLon">40.347,-74.660</div>
+    
+    <script>
+      var mymap = L.map('mapid').setView([40.35017029032423, -74.66096532143801], 16);
+      
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2Jyb29rczciLCJhIjoiY2ttdG9raW9rMHR0cjJwbnM4N201cWdxbiJ9.HAss6XKZvRdK5TQS9zYxQQ', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 30,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: ''
+}).addTo(mymap);
+      
+/*Polygon*/
+
+var polygon = L.polygon([
+    [40.35064254439344, -74.66233397129763],
+    [40.35113415983207, -74.66042895166174],
+    [40.3496896924696, -74.65979715819192],
+    [40.34916284057323, -74.66169971447556]], {
+        color: 'black',
+        fillColor: '#FFF',
+        fillOpacity: 0.2,
+    
+    }).addTo(mymap);
+
+        polygon.bindPopup("Palmer Square");
+
+/*Lines*/
+
+var polyline = L.polyline([
+    [40.35016548114345, -74.66021315493741],
+    [40.350203737624824, -74.66001776502199],
+    [40.351189084437195, -74.6604432870299],
+    [40.35106084358012, -74.66092663017926],
+    [40.35118560070127, -74.66096591375126],
+    [40.35106084358012, -74.66092663017926],
+    [40.35077161861804, -74.66207054226733],
+    [40.35040894347309, -74.66192772304946],
+    [40.35045266596, -74.66179871714566],
+    [40.35040894347309, -74.66192772304946],
+  [40.34993414920514, -74.66171402326194],
+[40.349866772851925, -74.66188991867008],
+[40.3498090262912, -74.66190198861094]], {
+        color: 'orange',
+    }).addTo(mymap);
+
+    polyline.bindPopup("Cocoa Crawl Route");
+
+/*Pt Locations*/
+
+var circle = L.circle([40.35016548114345, -74.66021315493741], {
+    color: 'black',
+    fillColor: '#630',
+    fillOpacity: 1,
+    radius: 3
+}).addTo(mymap);
+
+circle.bindPopup("Stop 1: Small World Coffee");
+
+var circle = L.circle([40.35118560070127, -74.66096591375126], {
+    color: 'black',
+    fillColor: '#630',
+    fillOpacity: 1,
+    radius: 3
+}).addTo(mymap);
+
+circle.bindPopup("Stop 2: Halo Pub");
+
+var circle = L.circle([40.35045266596, -74.66179871714566], {
+    color: 'black',
+    fillColor: '#630',
+    fillOpacity: 1,
+    radius: 3
+}).addTo(mymap);
+
+circle.bindPopup("Stop 3: Lindt Chocolate");
+
+var circle = L.circle([40.349866772851925, -74.66188991867008], {
+    color: 'black',
+    fillColor: '#630',
+    fillOpacity: 1,
+    radius: 3
+}).addTo(mymap);
+
+circle.bindPopup("Stop 4: Bent Spoon");
+
+var circle = L.circle([40.3498090262912, -74.66190198861094], {
+    color: 'black',
+    fillColor: '#630',
+    fillOpacity: 1,
+    radius: 3
+}).addTo(mymap);
+
+circle.bindPopup("Stop 5: Rojo's Roastery");
+
+      function onMapHover(e) {
+        var newLatLng = String(e.latlng).replace("LatLng(", "").replace(")", "")
+        document.getElementById("latLon").innerHTML = newLatLng;
+      }
+
+      mymap.on('mousemove', onMapHover);
+     
+      
+    </script>
+  </body>
+</html>
